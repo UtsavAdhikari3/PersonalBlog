@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Article
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 def guest_home(request):
     return render(request, "guest/home.html")
@@ -19,3 +21,10 @@ def admin_dashboard(request):
         "list_articles": list_articles,
     }
     return render(request, "admin/dashboard.html",display_article)
+
+def goodbye(request):
+    """
+    Do any post-logout cleanup, then punt the user to the real logout view.
+    """
+    logout_url = reverse("logout")
+    return HttpResponseRedirect(logout_url)
