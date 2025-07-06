@@ -1,12 +1,24 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
   <h2>Admin Dashboard</h2>
+
   <ul>
-    <li>Total users: {{ total_users }}</li>
-    <li>Recent sign-ups: {{ recent_signups }}</li>
-    <!-- add more stats/widgets here -->
+    <li>Total articles: {{ total_articles }}</li>
+  </ul>
+
+  <h3>Latest posts</h3>
+  <ul>
+    {% for article in list_articles %}
+      <li>
+        <strong>{{ article.title }}</strong><br>
+        {{ article.body|truncatechars:120 }}
+      </li>
+    {% empty %}
+      <li>No articles found.</li>
+    {% endfor %}
   </ul>
 {% endblock %}
